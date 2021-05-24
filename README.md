@@ -17,6 +17,8 @@ Absolute landmark positions\
 and making them autonomous within..
 
 
+**python env ver: 3.7**
+
 
 demo:
 
