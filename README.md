@@ -17,7 +17,7 @@ and making them autonomous within..
 
 demo:
 
- ![Alt text](demo.jpg) 
+ ![Alt text](demo.png) 
  
  
  
