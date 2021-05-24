@@ -12,7 +12,7 @@ The majority uses probabilistic concepts
 
 **use of SLAM**\
 Absolute robot poses\
-Absolute landmark positions\ 
+Absolute landmark positions\
 and making them autonomous within..\
 
 
