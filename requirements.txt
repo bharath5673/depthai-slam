@@ -1,0 +1,12 @@
+#python 3.7
+
+opencv-python
+numpy
+open3d
+matplotlib
+depathai
+
+
+# python3 -m pip install -U pip
+# python3 -m pip install opencv-python
+# python3 -m pip install -U --force-reinstall depthai
