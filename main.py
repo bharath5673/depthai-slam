@@ -10,30 +10,29 @@ pipeline = dai.Pipeline()
 
 # Define a source - color camera
 camRgb = pipeline.createColorCamera()
-
-# camRgb.setPreviewSize(300, 300)
-camRgb.setPreviewSize(600, 600)
-# camRgb.setPreviewSize(900, 900)
-
-
+camRgb.setBoardSocket(dai.CameraBoardSocket.RGB)
+# camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_1080_P)  		#1080
+# camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_12_MP)		#3040
+camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_4_K)			#2160
+camRgb.setVideoSize(1000, 1000) ## CUSTOMIZE SIZE
 camRgb.setInterleaved(False)
+# camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.BGR)
 camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.RGB)
-camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_4_K)
 
 
 # Create output
 xoutRgb = pipeline.createXLinkOut()
 xoutRgb.setStreamName("rgb")
 camRgb.preview.link(xoutRgb.input)
-
-
-
+xoutRgb1 = pipeline.createXLinkOut()
+xoutRgb1.setStreamName("video")
+xoutRgb1.input.setBlocking(False)
+xoutRgb1.input.setQueueSize(1)
+camRgb.video.link(xoutRgb1.input)
 
 
 pmap = PointMap()
 display = Display()
-
-
 
 pcd = o3d.geometry.PointCloud()
 visualizer = o3d.visualization.Visualizer()
@@ -50,13 +49,15 @@ with dai.Device() as device:
 	# Output queue will be used to get the rgb frames from the output defined above
 	# qRgb = device.getOutputQueue(name="rgb", maxSize=4, blocking=False)
 	qRgb = device.getOutputQueue(name="rgb", maxSize=30, blocking=False)
+	out = device.getOutputQueue(name="video", maxSize=1, blocking=False)
+
 
 	# while cap.isOpened():
 	while True:
-		# ret, frame = cap.read()
 		frame = qRgb.get()
-		frame = frame.getCvFrame()
-		# cv2.imshow("bgr", frame.getCvFrame())
+		# frame = frame.getCvFrame()
+		output = out.get()
+		frame = output.getCvFrame()
 
 		# frame = cv2.resize(frame, (960, 540))
 		img, tripoints, kpts, matches = process(frame)
