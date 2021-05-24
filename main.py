@@ -59,7 +59,6 @@ with dai.Device() as device:
 		output = out.get()
 		frame = output.getCvFrame()
 
-		# frame = cv2.resize(frame, (960, 540))
 		img, tripoints, kpts, matches = process(frame)
 		xyz = pmap.collect_points(tripoints)
 
