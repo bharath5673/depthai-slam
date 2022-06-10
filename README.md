@@ -1,4 +1,4 @@
-# deptha-slam
+# depthai-slam
 
 **SLAM: Simultaneous Localization and Mapping**\
 Estimate the pose of a robot and the map of the environment at the same time using OAKs.
